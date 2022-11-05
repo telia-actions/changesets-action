@@ -1,7 +1,8 @@
 {
-  "name": "@changesets/action",
-  "version": "1.4.0",
+  "name": "@theomuller/action",
+  "version": "1.0.0",
   "main": "dist/index.js",
+  "private": true,
   "license": "MIT",
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.2",
