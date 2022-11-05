@@ -1,5 +1,11 @@
 # @changesets/action
 
+## 1.0.1
+
+### Patch Changes
+
+- [`b5329d2`](https://github.com/changesets/action/commit/b5329d290f78088bb0ccd1817885ee14a96dd706) Thanks [@theomuller](https://github.com/theomuller)! - Revert back to 1.0.0 in fork
+
 ## 1.4.0
 
 ### Minor Changes
