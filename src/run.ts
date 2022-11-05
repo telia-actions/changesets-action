@@ -321,7 +321,7 @@ export async function runVersion({
   );
 
   const isPrerelease = !!preState && !exitPrereleaseMode;
-  const releaseTypeString = `${isPrerelease ? ` (${preState?.tag})` : ""}`;
+  const releaseTypeString = `${isPrerelease && preState? ` (${preState.tag})` : ""}`;
   const finalPrTitle = `${prTitle}${releaseTypeString}`;
 
   // project with `commit: true` setting could have already committed files
