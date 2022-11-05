@@ -36,11 +36,7 @@ const getOptionalInput = (name: string) => core.getInput(name) || undefined;
 
   let exitPrereleaseMode = core.getBooleanInput("exitPrereleaseMode");
 
-  if (exitPrereleaseMode) {
-    await exitPreMode();
-  }
-
-  let { changesets } = await readChangesetState();
+  let { changesets } = await readChangesetState(process.cwd(), exitPrereleaseMode);
 
   let publishScript = core.getInput("publish");
   let hasChangesets = changesets.length !== 0;
@@ -116,6 +112,7 @@ const getOptionalInput = (name: string) => core.getInput(name) || undefined;
         prTitle: getOptionalInput("title"),
         commitMessage: getOptionalInput("commit"),
         hasPublishScript,
+        exitPrereleaseMode,
       });
 
       core.setOutput("pullRequestNumber", String(pullRequestNumber));

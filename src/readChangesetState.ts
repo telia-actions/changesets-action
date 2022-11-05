@@ -8,14 +8,15 @@ export type ChangesetState = {
 };
 
 export default async function readChangesetState(
-  cwd: string = process.cwd()
+  cwd: string = process.cwd(),
+  exitingPrereleaseMode: boolean = false,
 ): Promise<ChangesetState> {
   let preState = await readPreState(cwd);
   let isInPreMode = preState !== undefined && preState.mode === "pre";
 
   let changesets = await readChangesets(cwd);
 
-  if (isInPreMode) {
+  if (isInPreMode && preState && !exitingPrereleaseMode) {
     let changesetsToFilter = new Set(preState.changesets);
     changesets = changesets.filter((x) => !changesetsToFilter.has(x.id));
   }

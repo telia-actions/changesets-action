@@ -15,6 +15,7 @@ import {
 import * as gitUtils from "./gitUtils";
 import readChangesetState from "./readChangesetState";
 import resolveFrom from "resolve-from";
+import exitPreMode from "./exitPreMode";
 
 // GitHub Issues/PRs messages have a max size limit on the
 // message body payload.
@@ -47,7 +48,7 @@ const createRelease = async (
       prerelease: pkg.packageJson.version.includes("-"),
       ...github.context.repo,
     });
-  } catch (err: any) {
+  } catch (err) {
     // if we can't find a changelog, the user has probably disabled changelogs
     if (err.code !== "ENOENT") {
       throw err;
@@ -165,7 +166,7 @@ export async function runPublish({
 const requireChangesetsCliPkgJson = (cwd: string) => {
   try {
     return require(resolveFrom(cwd, "@changesets/cli/package.json"));
-  } catch (err: any) {
+  } catch (err) {
     if (err && err.code === "MODULE_NOT_FOUND") {
       throw new Error(
         `Have you forgotten to install \`@changesets/cli\` in "${cwd}"?`
@@ -252,6 +253,7 @@ type VersionOptions = {
   commitMessage?: string;
   hasPublishScript?: boolean;
   prBodyMaxCharacters?: number;
+  exitPrereleaseMode?: boolean;
 };
 
 type RunVersionResult = {
@@ -266,6 +268,7 @@ export async function runVersion({
   commitMessage = "Version Packages",
   hasPublishScript = false,
   prBodyMaxCharacters = MAX_CHARACTERS_PER_MESSAGE,
+  exitPrereleaseMode = false,
 }: VersionOptions): Promise<RunVersionResult> {
   let repo = `${github.context.repo.owner}/${github.context.repo.repo}`;
   let branch = github.context.ref.replace("refs/heads/", "");
@@ -275,6 +278,10 @@ export async function runVersion({
 
   await gitUtils.switchToMaybeExistingBranch(versionBranch);
   await gitUtils.reset(github.context.sha);
+
+  if (exitPrereleaseMode) {
+    await exitPreMode();
+  }
 
   let versionsByDirectory = await getVersionsByDirectory(cwd);
 
