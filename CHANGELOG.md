@@ -1,5 +1,11 @@
 # @changesets/action
 
+## 1.0.3
+
+### Patch Changes
+
+- [`c23e59b`](https://github.com/changesets/action/commit/c23e59bd975df0e9e18c092a859c92e9f9289d54) Thanks [@theomuller](https://github.com/theomuller)! - Fixes exitPrereleaseMode
+
 ## 1.0.2
 
 ### Patch Changes
