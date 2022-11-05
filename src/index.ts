@@ -3,6 +3,7 @@ import fs from "fs-extra";
 import * as gitUtils from "./gitUtils";
 import { runPublish, runVersion } from "./run";
 import readChangesetState from "./readChangesetState";
+import exitPreMode from "./exitPreMode";
 
 const getOptionalInput = (name: string) => core.getInput(name) || undefined;
 
@@ -32,6 +33,12 @@ const getOptionalInput = (name: string) => core.getInput(name) || undefined;
     `${process.env.HOME}/.netrc`,
     `machine github.com\nlogin github-actions[bot]\npassword ${githubToken}`
   );
+
+  let exitPrereleaseMode = core.getBooleanInput("exitPrereleaseMode");
+
+  if (exitPrereleaseMode) {
+    await exitPreMode();
+  }
 
   let { changesets } = await readChangesetState();
 
