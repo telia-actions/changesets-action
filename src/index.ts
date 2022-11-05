@@ -33,7 +33,9 @@ const getOptionalInput = (name: string) => core.getInput(name) || undefined;
     `machine github.com\nlogin github-actions[bot]\npassword ${githubToken}`
   );
 
-  let { changesets } = await readChangesetState();
+  let exitPrereleaseMode = core.getBooleanInput("exitPrereleaseMode");
+
+  let { changesets } = await readChangesetState(process.cwd(), exitPrereleaseMode);
 
   let publishScript = core.getInput("publish");
   let hasChangesets = changesets.length !== 0;
@@ -109,6 +111,7 @@ const getOptionalInput = (name: string) => core.getInput(name) || undefined;
         prTitle: getOptionalInput("title"),
         commitMessage: getOptionalInput("commit"),
         hasPublishScript,
+        exitPrereleaseMode,
       });
 
       core.setOutput("pullRequestNumber", String(pullRequestNumber));
