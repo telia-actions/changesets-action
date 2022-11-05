@@ -3,7 +3,6 @@ import fs from "fs-extra";
 import * as gitUtils from "./gitUtils";
 import { runPublish, runVersion } from "./run";
 import readChangesetState from "./readChangesetState";
-import exitPreMode from "./exitPreMode";
 
 const getOptionalInput = (name: string) => core.getInput(name) || undefined;
 
