@@ -1,5 +1,11 @@
 # @changesets/action
 
+## 1.0.4
+
+### Patch Changes
+
+- [`90e060d`](https://github.com/changesets/action/commit/90e060d71bd6294e15fd2c72c70b4b7dfe83c8a5) Thanks [@theomuller](https://github.com/theomuller)! - Fix PR title and commit message for exitPrereleaseMode
+
 ## 1.0.3
 
 ### Patch Changes
