@@ -1,5 +1,11 @@
 # @changesets/action
 
+## 1.0.2
+
+### Patch Changes
+
+- [`d3af0d4`](https://github.com/changesets/action/commit/d3af0d4d90dd43f3d42ff9648c805aba103eeefc) Thanks [@theomuller](https://github.com/theomuller)! - Add exitPrereleaseMode action option
+
 ## 1.0.1
 
 ### Patch Changes
