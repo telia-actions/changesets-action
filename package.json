@@ -1,6 +1,6 @@
 {
   "name": "@telia-actions/changeset-action",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "main": "dist/index.js",
   "private": true,
   "license": "MIT",
