@@ -14,6 +14,7 @@ import {
 import * as gitUtils from "./gitUtils";
 import readChangesetState from "./readChangesetState";
 import resolveFrom from "resolve-from";
+import exitPreMode from "./exitPreMode";
 
 // GitHub Issues/PRs messages have a max size limit on the
 // message body payload.
@@ -184,12 +185,12 @@ type GetMessageOptions = {
     header: string;
   }[];
   prBodyMaxCharacters: number;
-  preState?: PreState;
+  isPrerelease: boolean;
 };
 
 export async function getVersionPrBody({
   hasPublishScript,
-  preState,
+  isPrerelease,
   changedPackagesInfo,
   prBodyMaxCharacters,
   branch,
@@ -200,7 +201,7 @@ export async function getVersionPrBody({
       : `publish to npm yourself or [setup this action to publish automatically](https://github.com/changesets/action#with-publishing)`
   }. If you're not ready to do a release yet, that's fine, whenever you add more changesets to ${branch}, this PR will be updated.
 `;
-  let messagePrestate = !!preState
+  let messagePrestate = isPrerelease
     ? `⚠️⚠️⚠️⚠️⚠️⚠️
 
 \`${branch}\` is currently in **pre mode** so this branch has prereleases rather than normal releases. If you want to exit prereleases, run \`changeset pre exit\` on \`${branch}\`.
@@ -251,6 +252,7 @@ type VersionOptions = {
   commitMessage?: string;
   hasPublishScript?: boolean;
   prBodyMaxCharacters?: number;
+  exitPrereleaseMode?: boolean;
 };
 
 type RunVersionResult = {
@@ -265,6 +267,7 @@ export async function runVersion({
   commitMessage = "Version Packages",
   hasPublishScript = false,
   prBodyMaxCharacters = MAX_CHARACTERS_PER_MESSAGE,
+  exitPrereleaseMode = false,
 }: VersionOptions): Promise<RunVersionResult> {
   let repo = `${github.context.repo.owner}/${github.context.repo.repo}`;
   let branch = github.context.ref.replace("refs/heads/", "");
@@ -274,6 +277,10 @@ export async function runVersion({
 
   await gitUtils.switchToMaybeExistingBranch(versionBranch);
   await gitUtils.reset(github.context.sha);
+
+  if (exitPrereleaseMode) {
+    await exitPreMode();
+  }
 
   let versionsByDirectory = await getVersionsByDirectory(cwd);
 
@@ -312,13 +319,13 @@ export async function runVersion({
     })
   );
 
-  const finalPrTitle = `${prTitle}${!!preState ? ` (${preState.tag})` : ""}`;
+  const isPrerelease = !!preState && !exitPrereleaseMode;
+  const releaseTypeString = `${isPrerelease && preState? ` (${preState.tag})` : ""}`;
+  const finalPrTitle = `${prTitle}${releaseTypeString}`;
 
   // project with `commit: true` setting could have already committed files
   if (!(await gitUtils.checkIfClean())) {
-    const finalCommitMessage = `${commitMessage}${
-      !!preState ? ` (${preState.tag})` : ""
-    }`;
+    const finalCommitMessage = `${commitMessage}${releaseTypeString}`;
     await gitUtils.commitAll(finalCommitMessage);
   }
 
@@ -333,7 +340,7 @@ export async function runVersion({
 
   let prBody = await getVersionPrBody({
     hasPublishScript,
-    preState,
+    isPrerelease,
     branch,
     changedPackagesInfo,
     prBodyMaxCharacters,

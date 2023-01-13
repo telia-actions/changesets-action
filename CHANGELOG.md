@@ -1,4 +1,4 @@
-# @changesets/action
+# @telia-actions/changeset-action
 
 ## 1.4.1
 

@@ -1,7 +1,8 @@
 {
-  "name": "@changesets/action",
+  "name": "@telia-actions/changeset-action",
   "version": "1.4.1",
   "main": "dist/index.js",
+  "private": true,
   "license": "MIT",
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.2",
