@@ -1,5 +1,11 @@
 # @telia-actions/changeset-action
 
+## 1.4.6
+
+### Patch Changes
+
+- [#6](https://github.com/telia-actions/changesets-action/pull/6) [`c075836`](https://github.com/telia-actions/changesets-action/commit/c0758365433964248f0547e6f636e5085eba7cfa) Thanks [@theomuller](https://github.com/theomuller)! - Update from parent repository.
+
 ## 1.4.2
 
 ### Patch Changes
