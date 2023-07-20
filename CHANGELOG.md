@@ -12,6 +12,41 @@
 
 - [#123](https://github.com/changesets/action/pull/123) [`b78f480`](https://github.com/changesets/action/commit/b78f48099899f0a853c5d9cd3feb21a5440babbd) Thanks [@Andarist](https://github.com/Andarist)! - Updated `@actions/*` dependencies to avoid using deprecated features of the runner.
 
+## 1.4.5
+
+### Patch Changes
+
+- [#282](https://github.com/changesets/action/pull/282) [`eb19e25`](https://github.com/changesets/action/commit/eb19e25e7797cf33dc2de4caa071e85a8057a0f0) Thanks [@mark-omarov](https://github.com/mark-omarov)! - Updated a few dependencies to patch the security vulnerabilities that were reported for their older versions.
+
+## 1.4.4
+
+### Patch Changes
+
+- [#291](https://github.com/changesets/action/pull/291) [`db8a109`](https://github.com/changesets/action/commit/db8a1099bc0ba1dd6f46a5b9df4212e4f69e78c9) Thanks [@varl](https://github.com/varl)! - Wire up [`@octokit/plugin-throttling`](https://github.com/octokit/plugin-throttling.js) with all GitHub Octokit instances
+
+## 1.4.3
+
+### Patch Changes
+
+- [#289](https://github.com/changesets/action/pull/289) [`8b28186`](https://github.com/changesets/action/commit/8b2818674de86a7fc69aebb9ed6b486ee32eb96e) Thanks [@varl](https://github.com/varl)! - Use logging provided by `@actions/core`
+
+## 1.4.2
+
+### Patch Changes
+
+- [#286](https://github.com/changesets/action/pull/286) [`225a1e8`](https://github.com/changesets/action/commit/225a1e8cbcabb7b585174ba0ad806549db40d4cd) Thanks [@varl](https://github.com/varl)! - This patch implements the [`@octokit/plugin-throttling`](https://github.com/octokit/plugin-throttling.js) plugin and [wires
+  it up with the internal GitHub Octokit instance](https://github.com/actions/toolkit/tree/457303960f03375db6f033e214b9f90d79c3fe5c/packages/github#extending-the-octokit-instance).
+
+  This plugin is recommended by [the Octokit docs](://octokit.github.io/rest.js/v19#throttling) as it implements all the GitHub [best practices for integrators](https://docs.github.com/en/rest/guides/best-practices-for-integrators?apiVersion=2022-11-28).
+
+  This should help with `changesets/action` gitting spurious secondary rate limits and failing CI jobs, for which the only known workaround is to simply re-run the job.
+
+## 1.4.1
+
+### Patch Changes
+
+- [#123](https://github.com/changesets/action/pull/123) [`b78f480`](https://github.com/changesets/action/commit/b78f48099899f0a853c5d9cd3feb21a5440babbd) Thanks [@Andarist](https://github.com/Andarist)! - Updated `@actions/*` dependencies to avoid using deprecated features of the runner.
+
 ## 1.4.0
 
 ### Minor Changes

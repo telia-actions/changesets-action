@@ -12,17 +12,20 @@ export default async function readChangesetState(
   exitingPrereleaseMode: boolean = false,
 ): Promise<ChangesetState> {
   let preState = await readPreState(cwd);
-  let isInPreMode = preState !== undefined && preState.mode === "pre";
-
   let changesets = await readChangesets(cwd);
-
+  let isInPreMode = preState !== undefined && preState.mode === "pre";
+  
   if (isInPreMode && preState && !exitingPrereleaseMode) {
     let changesetsToFilter = new Set(preState.changesets);
-    changesets = changesets.filter((x) => !changesetsToFilter.has(x.id));
+
+    return {
+      preState,
+      changesets: changesets.filter((x) => !changesetsToFilter.has(x.id)),
+    };
   }
 
   return {
-    preState: isInPreMode ? preState : undefined,
+    preState: undefined,
     changesets,
   };
 }
