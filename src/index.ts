@@ -112,6 +112,7 @@ const getOptionalInput = (name: string) => core.getInput(name) || undefined;
         commitMessage: getOptionalInput("commit"),
         hasPublishScript,
         exitPrereleaseMode,
+        branch: getOptionalInput("branch"),
       });
 
       core.setOutput("pullRequestNumber", String(pullRequestNumber));

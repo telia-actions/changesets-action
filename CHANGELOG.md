@@ -18,6 +18,26 @@
 
 - [#123](https://github.com/changesets/action/pull/123) [`b78f480`](https://github.com/changesets/action/commit/b78f48099899f0a853c5d9cd3feb21a5440babbd) Thanks [@Andarist](https://github.com/Andarist)! - Updated `@actions/*` dependencies to avoid using deprecated features of the runner.
 
+## 1.4.8
+
+### Patch Changes
+
+- [#393](https://github.com/changesets/action/pull/393) [`48ab0d2`](https://github.com/changesets/action/commit/48ab0d2f2e77ae169182d022591ef5c18c931ff2) Thanks [@s0](https://github.com/s0)! - Ensure the PR remains open when updated
+
+- [#393](https://github.com/changesets/action/pull/393) [`48ab0d2`](https://github.com/changesets/action/commit/48ab0d2f2e77ae169182d022591ef5c18c931ff2) Thanks [@s0](https://github.com/s0)! - Switch to cheaper API for querying existing PRs
+
+## 1.4.7
+
+### Patch Changes
+
+- [#255](https://github.com/changesets/action/pull/255) [`f2660aa`](https://github.com/changesets/action/commit/f2660aa7e78365f53dbeb4cfa774c1499ec6483a) Thanks [@ernestognw](https://github.com/ernestognw)! - Allow customize PR `branch` field
+
+## 1.4.6
+
+### Patch Changes
+
+- [#350](https://github.com/changesets/action/pull/350) [`9385be9`](https://github.com/changesets/action/commit/9385be9e757839189ea5ee63ec4e3caa8a6ca71b) Thanks [@m-shaka](https://github.com/m-shaka)! - Bump the used node.js from 16 to 20
+
 ## 1.4.5
 
 ### Patch Changes
