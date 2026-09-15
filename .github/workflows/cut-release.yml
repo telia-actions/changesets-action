@@ -1,0 +1,27 @@
+name: Cut release line
+on: workflow_dispatch
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - uses: actions/checkout@v6
+            - uses: actions/setup-node@v6
+              with:
+                  node-version: 24
+            - run: corepack enable
+            - run: pnpm install --frozen-lockfile
+            - run: pnpm build
+            - name: Commit dist and push release line
+              run: |
+                  VERSION=$(node -p "require('./package.json').version")
+                  git config user.name "github-actions[bot]"
+                  git config user.email "github-actions[bot]@users.noreply.github.com"
+                  git checkout --detach
+                  git add --force dist
+                  git commit -m "v$VERSION"
+                  git tag "v$VERSION"
+                  git push origin "refs/tags/v$VERSION"
+                  git push --force origin "HEAD:refs/heads/v${VERSION%%.*}"
